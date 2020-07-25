@@ -7,16 +7,13 @@ require 'pry'
 
 $base_url = "http://www.mapquestapi.com/geocoding/v1/address?key=jD1z4gMfiupsX29tyYAdeEs5jW4jB3Id&location="
 
-def geocode(location_string)
+def get_lat_long_hash(location_string)
   url = $base_url + location_string
 
   response = HTTParty.get(url)
+  binding.pry
   return response["results"][0]["locations"][0]["latLng"]
 end
-
-
-
-
 
 def display_coordinates(coordinates_hash)
   lat = coordinates_hash["lat"]
@@ -24,8 +21,8 @@ def display_coordinates(coordinates_hash)
 
   puts "The coordinates of #{$location_string}:"
   puts " "
-  puts "Latitude: #{lat.round(4)}"
-  puts "Longitude: #{lng.round(4)}"
+  puts "Latitude: #{lat}"
+  puts "Longitude: #{lng}"
 end
 
 # end
