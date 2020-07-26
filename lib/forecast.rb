@@ -5,7 +5,8 @@ require 'json'
 require 'nokogiri'
 
 
-def Forecast
+
+ def Forecast
 
     @@base_url = "https://api.weather.gov/points/"
 
@@ -30,19 +31,17 @@ def Forecast
 
     def get_forecast(type = "current")
         response = request(@full_url)
-        case type
-        when "current"
-            request(@full_url)
-            forecast = response["properties"]["forecast"]
-        when 
+        # case type
+        # when "current"
+        #     request(@full_url)
+        #     forecast = response["properties"]["forecast"]
+        # when 
             
-        else
+        # # else
             
-        end
+        # end
 
     end
-
-
 
     # $base_url = "https://api.weather.gov/points/"
 
@@ -62,7 +61,6 @@ def Forecast
 
     def request(url)
         return JSON.parse(open(url).read)
-        
     end
 
     def display_response(response)
@@ -72,7 +70,7 @@ def Forecast
 
 end
 
-coordinates = {"lat"=>38.67515, "lng"=>-90.375989}
-get_by_coordinates(coordinates)
+# coordinates = {"lat"=>38.67515, "lng"=>-90.375989}
+# Forecast.newget_by_coordinates(coordinates)
 
 # https://api.weather.gov/points/{latitude},{longitude}

@@ -1,0 +1,12 @@
+require_relative '../config/environment.rb'
+require_relative './geocoder.rb'
+require 'pry'
+
+
+geocoder = Geocoder.new
+
+puts "Please enter a location:"
+input = gets.strip
+
+output = geocoder.geocode(input)
+puts output
