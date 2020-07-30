@@ -6,13 +6,14 @@ require 'nokogiri'
 
 
 
- def Forecast
+ class Forecast
 
     @@base_url = "https://api.weather.gov/points/"
 
-    attr_accessor :latLng, :request_url
+    attr_accessor :latLng, :request_url, :type
+    attr_reader :location
 
-    def initialize(location_string)
+    def initialize(location, type = 0)
         @latLng = Location.geocode(location_string)
         @request_url = get_full_url
     end
