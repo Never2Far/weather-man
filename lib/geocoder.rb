@@ -8,6 +8,7 @@ require 'httparty'
 require 'pry'
 require 'open-uri'
 require 'json'
+require 'pp'
 # require 'nokogiri'
 
 class Geocoder
@@ -32,40 +33,24 @@ class Geocoder
         @input = search_string
         url = @base_url + @input
         response = HTTParty.get(url)
-        binding.pry
         location_hash = response["results"][0]["locations"][0]
         @output = {
-                    :street => [location_hash]["street"],
-                    :neighborhood => [location_hash]["adminArea6"],
-                    :city => [location_hash]["adminArea5"],
-                    :county => [location_hash]["adminArea4"],
-                    :state => [location_hash]["adminArea3"],
-                    :zip => [location_hash]["postalCode"],
-                    :country => [location_hash]["adminArea1"],
-                    :lat => [location_hash]["latLng"]["lat"].round(4),
-                    :lng => [location_hash]["latLng"]["lng"].round(4),
-                    :coordinates => [location_hash]["lng"],
-                    :unknownInput => [location_hash]["unknownInput"],
-                    :mapUrl => [location_hash]["mapUrl"]
+                    :street => location_hash["street"],
+                    :neighborhood => location_hash["adminArea6"],
+                    :city => location_hash["adminArea5"],
+                    :county => location_hash["adminArea4"],
+                    :state => location_hash["adminArea3"],
+                    :zip => location_hash["postalCode"],
+                    :country => location_hash["adminArea1"],
+                    :lat => location_hash["latLng"]["lat"].round(4),
+                    :lng => location_hash["latLng"]["lng"].round(4),
+                    :coordinates => location_hash["latLng"],
+                    :unknownInput => location_hash["unknownInput"],
+                    :mapUrl => location_hash["mapUrl"]
                  }
-        # response["results"][0]["locations"][0]["latLng"]
-        lat = @output["lat"].round(4)
-        lng = @output["lng"].round(4)
-        return [lat, lng]
+        @output.each {|key, value| value == "" ? @output[key] = nil : false}
+        return @output
     end
-
-    def reverse(lat, lng)
-        
-    end
-
-    def location_info
-
-    end
-
-
-
-
-
 end
 
 
@@ -76,4 +61,22 @@ puts "Please enter a location:"
 input = gets.strip
 
 output = geocoder.geocode(input)
-puts output
+pp output
+
+
+
+
+  # @output = {
+        #             :street => [location_hash]["street"],
+        #             :neighborhood => [location_hash]["adminArea6"],
+        #             :city => [location_hash]["adminArea5"],
+        #             :county => [location_hash]["adminArea4"],
+        #             :state => [location_hash]["adminArea3"],
+        #             :zip => [location_hash]["postalCode"],
+        #             :country => [location_hash]["adminArea1"],
+        #             :lat => [location_hash]["latLng"]["lat"].round(4),
+        #             :lng => [location_hash]["latLng"]["lng"].round(4),
+        #             :coordinates => [location_hash]["lng"],
+        #             :unknownInput => [location_hash]["unknownInput"],
+        #             :mapUrl => [location_hash]["mapUrl"]
+        #          }
