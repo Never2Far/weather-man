@@ -1,8 +1,8 @@
+require 'pry'
+
 class User
 
     @@all = []
-
-
 
     attr_accessor :name, :locations
 
@@ -20,7 +20,17 @@ class User
         return @@all
     end
 
-    def add(location)
+    def self.intro
+        puts "What is your name?"
+        username = gets.strip
+        new_user = User.new(username)
+        puts ""
+        puts ""
+        puts "Welcome, #{new_user.name}!"
+        return new_user
+    end
+
+    def add_location(location)
         @locations << location
     end
 
@@ -29,8 +39,6 @@ class User
         puts "---------------------------------------"
         locations.each_with_index {|location, index|
         puts "#{index + 1}. #{location.name}"}
+        puts "---------------------------------------"
     end
-
-
-
 end

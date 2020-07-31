@@ -34,11 +34,9 @@ class Geocoder
                     :country => location_hash["adminArea1"],
                     :lat => location_hash["latLng"]["lat"],
                     :lng => location_hash["latLng"]["lng"],
-                    :coordinates => location_hash["latLng"],
-                    :unknownInput => location_hash["unknownInput"],
                     :mapUrl => location_hash["mapUrl"]
                  }
-        output.each {|key, value| value == "" ? @output[key] = nil : false}
+        output.each {|key, value| value == "" ? output[key] = nil : false}
         return output
     end
 end
