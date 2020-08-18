@@ -25,8 +25,10 @@ new_user = User.intro
     # end
 input = nil
     while input != "4"
+        puts ""
+        puts "---------------------------------------------"
         puts "Please select from the following (enter 1-4):"
-        puts "--------------------------------------------"
+        puts "---------------------------------------------"
         puts "1. Add new location"
         puts "2. View saved locations"
         puts "3. Get Forecast"
@@ -56,7 +58,43 @@ input = nil
         when "2"
             new_user.list_locations
             # main_menu
+        when "3"
+
+           
+
+            new_user.list_locations
+            puts "For which location? (Choose a saved location's number, or type \"n\" to enter a new location)"
+            forecast_loc = new_user.locations[gets.strip.to_i - 1]
+            forecaster = Forecast.new(forecast_loc)
+            puts ""
+            puts "----------------------------"
+            puts "What kind of forecast? (1-4)"
+            puts "----------------------------"
+            puts "1. Today -- Summary"
+            puts "2. Today -- Hourly"
+            puts "3. 3-day"
+            puts "4. 7-day"
+            forecaster.get_forecast(gets.strip.to_s)
+            # case gets.strip
+            # when "1"
+            #     forecaster.get_forecast("1")
+            # when "2"
+
+            # when "3"
+            #     forecaster.get_forecast("3")
+            # when "4"
+                
+            # when "5"
+
+            # else
+
+            # end
+            # new_forecast = forecaster.get_forecast
+            # binding.pry
+            # new_forecast.display
         when "4"
+            exit
+        when "5"
             exit
         else
             # main_menu
