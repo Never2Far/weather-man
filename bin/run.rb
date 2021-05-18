@@ -13,6 +13,7 @@ puts "Hello, I am your personal weather man!"
 puts "What is your name?"
 username = gets.strip
 new_user = User.new(username)
+# user_locations = File.open("user_credentials.txt", 'w')
 puts ""
 puts ""
 puts "Nice to meet you, #{new_user.name}!"
@@ -20,7 +21,9 @@ puts "Nice to meet you, #{new_user.name}!"
 # Main Menu
 #---------------------------------------------------------------------------------------
 input = nil
+skip_to = nil
     while input != "4"
+        unless skip_to
         puts ""
         puts "---------------------------------------------"
         puts "Please select from the following (enter 1-4):"
@@ -30,9 +33,16 @@ input = nil
         puts "3. Get Forecast"
         puts "4. Exit"
         input = gets.strip
-
+        
+    else input = skip_to
+    end
+        
+    
+        
+    
         case input
         when "1"
+            answer = "n"
             while answer == "n"
                 puts "Please enter a location.  You can search by address, city, zip code, etc.:"
                 loc = gets.strip
@@ -59,10 +69,17 @@ input = nil
             # if (answer.downcase == "y") || (answer.downcase == "yes")
             #     new_user.add_location(new_loc)
             puts "#{name} has been added to your list of locations!"
+            puts "Would you like to get the forecast for #{name} (y/n)?"
+            if gets.strip.downcase == "y"
+                forecaster = Forecast.new(new_user.locations.last)
+                type = forecaster.get_type
+                forecaster.get_forecast(type)
+            end
                 # main_menu
             # else
                 # main_menu
             # end
+            skip_to = nil
         when "2"
             new_user.list_locations
             # main_menu
@@ -72,17 +89,24 @@ input = nil
 
             new_user.list_locations
             puts "For which location? (Choose a saved location's number, or type \"n\" to enter a new location)"
+            unless gets.strip.downcase == "n"
             forecast_loc = new_user.locations[gets.strip.to_i - 1]
             forecaster = Forecast.new(forecast_loc)
-            puts ""
-            puts "----------------------------"
-            puts "What kind of forecast? (1-4)"
-            puts "----------------------------"
-            puts "1. Today -- Summary"
-            puts "2. Today -- Hourly"
-            puts "3. 3-day"
-            puts "4. 7-day"
-            forecaster.get_forecast(gets.strip.to_s)
+            type = forecaster.get_type
+            forecaster.get_forecast(type)
+            
+        else
+            skip_to = "1"
+        end
+            # puts ""
+            # puts "----------------------------"
+            # puts "What kind of forecast? (1-4)"
+            # puts "----------------------------"
+            # puts "1. Today -- Summary"
+            # puts "2. Today -- Hourly"
+            # puts "3. 3-day"
+            # puts "4. 7-day"
+            # forecaster.get_forecast(gets.strip.to_s)
             # case gets.strip
             # when "1"
             #     forecaster.get_forecast("1")
@@ -99,7 +123,7 @@ input = nil
             # end
             # new_forecast = forecaster.get_forecast
             # binding.pry
-            # new_forecast.display
+            # new_forecast.displayruby
         when "4"
             exit
         when "5"
