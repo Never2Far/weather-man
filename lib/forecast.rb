@@ -48,6 +48,18 @@ require 'nokogiri'
     #     return full_url
     # end
 
+    def get_type
+            puts ""
+            puts "----------------------------"
+            puts "What kind of forecast? (1-4)"
+            puts "----------------------------"
+            puts "1. Today -- Summary"
+            puts "2. Today -- Hourly"
+            puts "3. 3-day"
+            puts "4. 7-day"
+            return gets.strip.to_s
+    end
+
     def get_forecast(type = "1")
         forecast_url = @base_url + "gridpoints/#{@grid_id}/#{grid_x},#{grid_y}/forecast"
         response = request(forecast_url)
