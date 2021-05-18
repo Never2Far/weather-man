@@ -1,7 +1,6 @@
 #!/usr/bin/env ruby
 
 require_relative '../config/environment.rb'
-# require_relative './geocoder.rb'
 require 'pry'
 require 'pp'
 
@@ -24,22 +23,19 @@ input = nil
 skip_to = nil
     while input != "4"
         unless skip_to
-        puts ""
-        puts "---------------------------------------------"
-        puts "Please select from the following (enter 1-4):"
-        puts "---------------------------------------------"
-        puts "1. Search for a new location"
-        puts "2. View saved locations"
-        puts "3. Get Forecast"
-        puts "4. Exit"
-        input = gets.strip
-        
-    else input = skip_to
-    end
-        
-    
-        
-    
+            puts ""
+            puts "---------------------------------------------"
+            puts "Please select from the following (enter 1-4):"
+            puts "---------------------------------------------"
+            puts "1. Search for a new location"
+            puts "2. View saved locations"
+            puts "3. Get Forecast"
+            puts "4. Exit"
+            input = gets.strip
+        else 
+            input = skip_to
+        end
+
         case input
         when "1"
             answer = "n"
@@ -49,8 +45,6 @@ skip_to = nil
                 geocoder = Geocoder.new
                 attributes = geocoder.geocode(loc)
                 pp attributes
-                
-                # new_loc.display_info
                 puts ""
                 puts "Is that the correct location? (y/n)"
                 answer = gets.strip
@@ -64,10 +58,6 @@ skip_to = nil
             name = gets.strip
             new_loc = Location.new(name, attributes)
             new_user.add_location(new_loc)
-            # puts "Would you like to save #{name}? (y/n)"
-            # answer = gets.strip
-            # if (answer.downcase == "y") || (answer.downcase == "yes")
-            #     new_user.add_location(new_loc)
             puts "#{name} has been added to your list of locations!"
             puts "Would you like to get the forecast for #{name} (y/n)?"
             if gets.strip.downcase == "y"
@@ -75,61 +65,23 @@ skip_to = nil
                 type = forecaster.get_type
                 forecaster.get_forecast(type)
             end
-                # main_menu
-            # else
-                # main_menu
-            # end
             skip_to = nil
         when "2"
             new_user.list_locations
-            # main_menu
         when "3"
-
-           
-
             new_user.list_locations
             puts "For which location? (Choose a saved location's number, or type \"n\" to enter a new location)"
             unless gets.strip.downcase == "n"
-            forecast_loc = new_user.locations[gets.strip.to_i - 1]
-            forecaster = Forecast.new(forecast_loc)
-            type = forecaster.get_type
-            forecaster.get_forecast(type)
-            
-        else
-            skip_to = "1"
-        end
-            # puts ""
-            # puts "----------------------------"
-            # puts "What kind of forecast? (1-4)"
-            # puts "----------------------------"
-            # puts "1. Today -- Summary"
-            # puts "2. Today -- Hourly"
-            # puts "3. 3-day"
-            # puts "4. 7-day"
-            # forecaster.get_forecast(gets.strip.to_s)
-            # case gets.strip
-            # when "1"
-            #     forecaster.get_forecast("1")
-            # when "2"
-
-            # when "3"
-            #     forecaster.get_forecast("3")
-            # when "4"
-                
-            # when "5"
-
-            # else
-
-            # end
-            # new_forecast = forecaster.get_forecast
-            # binding.pry
-            # new_forecast.displayruby
+                forecast_loc = new_user.locations[gets.strip.to_i - 1]
+                forecaster = Forecast.new(forecast_loc)
+                type = forecaster.get_type
+                forecaster.get_forecast(type)
+            else
+                skip_to = "1"
+            end
         when "4"
             exit
-        when "5"
-            exit
         else
-            # main_menu
+            skip_to = nil
         end
     end
-# end
