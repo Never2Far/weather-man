@@ -23,7 +23,7 @@ and finally enter
 ```bash
 ruby run.rb
 ```
-to seed start the application.
+to start the application.
 
 ## Usage
 
