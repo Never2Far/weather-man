@@ -28,7 +28,7 @@ to start the application.
 ## Usage
 
 To use the app, simply follow the prompts provided on the CLI.
-```
+
 
 ## Contributing
 
