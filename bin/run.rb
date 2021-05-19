@@ -71,8 +71,9 @@ skip_to = nil
         when "3"
             new_user.list_locations
             puts "For which location? (Choose a saved location's number, or type \"n\" to enter a new location)"
-            unless gets.strip.downcase == "n"
-                forecast_loc = new_user.locations[gets.strip.to_i - 1]
+            answer = gets.strip.downcase
+            unless answer == "n"
+                forecast_loc = new_user.locations[answer.to_i - 1]
                 forecaster = Forecast.new(forecast_loc)
                 type = forecaster.get_type
                 forecaster.get_forecast(type)
