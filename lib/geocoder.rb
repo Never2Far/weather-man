@@ -1,4 +1,5 @@
-#Given a location string, (address, zipcode, city, latitude/logitude etc.) queries the Mapquest API and returns a hash 
+#Given a location string, (address, zipcode, city, latitude/logitude etc.) 
+#queries the Mapquest API and returns a hash 
 #containing "normalized" location info.
 
 require 'httparty'

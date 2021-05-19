@@ -1,12 +1,13 @@
 require 'pry'
 require 'pp'
 
-
 class Location
 
   @@all = []
 
-  attr_accessor :user_input, :name, :lat, :lng, :street, :city, :state, :zip, :county, :country, :neighborhood, :mapUrl
+  attr_accessor :user_input, :name, :lat, :lng, :street, 
+                :city, :state, :zip, :county, :country, 
+                :neighborhood, :mapUrl
 
   def initialize(name, attributes)
     @name = name
