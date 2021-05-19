@@ -52,7 +52,8 @@ class Forecast
         periods = response["properties"]["periods"]
         case type
             when "1" #today, summary
-            
+                puts ""
+                puts ""
                 puts "#{periods[0]["name"]}: #{periods[0]["detailedForecast"]}" 
                 puts ""
                 puts "#{periods[1]["name"]}: #{periods[1]["detailedForecast"]}" 
