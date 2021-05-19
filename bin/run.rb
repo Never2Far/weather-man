@@ -81,6 +81,9 @@ skip_to = nil
                 skip_to = "1"
             end
         when "4"
+            puts ""
+            puts "Goodbye!"
+            puts ""
             exit
         else
             skip_to = nil
