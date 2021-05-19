@@ -48,7 +48,7 @@ class Forecast
             forecast_url = @base_url + "gridpoints/#{@grid_id}/#{grid_x},#{grid_y}/forecast"
         end
         response = request(forecast_url)
-        pp response
+        # pp response
         periods = response["properties"]["periods"]
         case type
             when "1" #today, summary
